@@ -11,53 +11,47 @@ export function PhotoViewModal({
   onClose: () => void;
 }) {
   return (
-    <div
-      className="fixed inset-0 z-30 flex items-center justify-center bg-black/70 px-4 py-8"
-      onClick={onClose}
-    >
+    <div className="fixed inset-0 z-30 flex flex-col bg-black/95">
+      <button
+        onClick={onClose}
+        aria-label="Cerrar"
+        className="absolute right-4 top-4 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-black/50 text-xl text-white transition hover:bg-black/70"
+      >
+        ✕
+      </button>
+
+      <div className="relative flex-1" onClick={onClose}>
+        <Image
+          src={photo.url}
+          alt={photo.title}
+          fill
+          sizes="100vw"
+          priority
+          className="object-contain"
+        />
+      </div>
+
       <div
         onClick={(e) => e.stopPropagation()}
-        className="flex max-h-full w-full max-w-3xl flex-col overflow-hidden rounded-2xl bg-white shadow-card sm:flex-row"
+        className="shrink-0 bg-gradient-to-t from-black/95 to-black/60 px-5 py-4 text-white sm:px-8"
       >
-        <div className="relative aspect-[4/3] w-full shrink-0 bg-ink-100 sm:aspect-auto sm:w-2/3">
-          <Image
-            src={photo.url}
-            alt={photo.title}
-            fill
-            sizes="(max-width: 640px) 100vw, 66vw"
-            className="object-contain"
-          />
-        </div>
-
-        <div className="flex w-full flex-col gap-3 overflow-y-auto p-5 sm:w-1/3">
-          <div className="flex items-start justify-between gap-2">
-            <h2 className="text-lg font-semibold text-ink-900">{photo.title}</h2>
-            <button
-              onClick={onClose}
-              className="shrink-0 text-ink-400 hover:text-ink-700"
-              aria-label="Cerrar"
-            >
-              ✕
-            </button>
-          </div>
-
-          <span className="w-fit rounded-full bg-ink-100 px-3 py-1 text-xs font-medium text-ink-600">
+        <div className="mx-auto flex max-w-3xl flex-wrap items-center gap-3">
+          <h2 className="text-lg font-semibold">{photo.title}</h2>
+          <span className="rounded-full bg-white/15 px-3 py-0.5 text-xs font-medium">
             {photo.category.name}
           </span>
-
-          <p className="whitespace-pre-wrap text-sm text-ink-600">
-            {photo.description || "Sin descripción."}
-          </p>
-
-          <p className="mt-auto text-xs text-ink-400">
-            Subida el{" "}
-            {new Date(photo.createdAt).toLocaleDateString("es-PE", {
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            })}
-          </p>
         </div>
+        <p className="mx-auto mt-1 max-w-3xl whitespace-pre-wrap text-sm text-white/80">
+          {photo.description || "Sin descripción."}
+        </p>
+        <p className="mx-auto mt-1 max-w-3xl text-xs text-white/50">
+          Subida el{" "}
+          {new Date(photo.createdAt).toLocaleDateString("es-PE", {
+            day: "numeric",
+            month: "long",
+            year: "numeric",
+          })}
+        </p>
       </div>
     </div>
   );
