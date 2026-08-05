@@ -8,6 +8,7 @@ import type { Category, Photo } from "@/lib/types";
 import { Navbar } from "@/components/Navbar";
 import { CategoryTabs } from "@/components/CategoryTabs";
 import { PhotoCard } from "@/components/PhotoCard";
+import { PhotoViewModal } from "@/components/PhotoViewModal";
 import { UploadModal } from "@/components/UploadModal";
 
 export default function GalleryPage() {
@@ -19,6 +20,7 @@ export default function GalleryPage() {
   const [activeSlug, setActiveSlug] = useState("all");
   const [loading, setLoading] = useState(true);
   const [showUpload, setShowUpload] = useState(false);
+  const [viewingPhoto, setViewingPhoto] = useState<Photo | null>(null);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -57,6 +59,7 @@ export default function GalleryPage() {
   async function handleDeletePhoto(id: string) {
     await api.delete(`/api/photos/${id}`);
     setPhotos((prev) => prev.filter((p) => p.id !== id));
+    setViewingPhoto((prev) => (prev?.id === id ? null : prev));
     loadCategories();
   }
 
@@ -112,7 +115,12 @@ export default function GalleryPage() {
         ) : (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {photos.map((photo) => (
-              <PhotoCard key={photo.id} photo={photo} onDelete={handleDeletePhoto} />
+              <PhotoCard
+                key={photo.id}
+                photo={photo}
+                onDelete={handleDeletePhoto}
+                onView={setViewingPhoto}
+              />
             ))}
           </div>
         )}
@@ -125,6 +133,10 @@ export default function GalleryPage() {
           onClose={() => setShowUpload(false)}
           onUpload={handleUpload}
         />
+      )}
+
+      {viewingPhoto && (
+        <PhotoViewModal photo={viewingPhoto} onClose={() => setViewingPhoto(null)} />
       )}
     </div>
   );

@@ -7,13 +7,16 @@ import type { Photo } from "@/lib/types";
 export function PhotoCard({
   photo,
   onDelete,
+  onView,
 }: {
   photo: Photo;
   onDelete: (id: string) => Promise<void>;
+  onView: (photo: Photo) => void;
 }) {
   const [deleting, setDeleting] = useState(false);
 
-  async function handleDelete() {
+  async function handleDelete(e: React.MouseEvent) {
+    e.stopPropagation();
     if (!confirm(`¿Borrar "${photo.title}"?`)) return;
     setDeleting(true);
     try {
@@ -24,7 +27,10 @@ export function PhotoCard({
   }
 
   return (
-    <div className="group relative overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card">
+    <div
+      onClick={() => onView(photo)}
+      className="group relative cursor-pointer overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card"
+    >
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink-100">
         <Image
           src={photo.url}
