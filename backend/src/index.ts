@@ -9,6 +9,8 @@ import photoRoutes from "./routes/photos";
 
 const app = express();
 
+app.set("trust proxy", 1);
+
 app.use(
   cors({
     origin: env.frontendUrl,

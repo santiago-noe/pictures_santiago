@@ -1,7 +1,7 @@
 import "dotenv/config";
 
 function required(name: string): string {
-  const value = process.env[name];
+  const value = process.env[name]?.trim();
   if (!value) {
     throw new Error(`Falta la variable de entorno ${name}`);
   }
@@ -14,7 +14,7 @@ export const env = {
   cloudinaryCloudName: required("CLOUDINARY_CLOUD_NAME"),
   cloudinaryApiKey: required("CLOUDINARY_API_KEY"),
   cloudinaryApiSecret: required("CLOUDINARY_API_SECRET"),
-  frontendUrl: process.env.FRONTEND_URL || "http://localhost:3000",
-  nodeEnv: process.env.NODE_ENV || "development",
+  frontendUrl: (process.env.FRONTEND_URL || "http://localhost:3000").trim(),
+  nodeEnv: (process.env.NODE_ENV || "development").trim(),
   port: Number(process.env.PORT) || 4000,
 };
