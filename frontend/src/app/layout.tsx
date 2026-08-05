@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es" className={inter.variable}>
-      <body className="min-h-screen font-sans text-ink-900 antialiased">
+      <body className="min-h-screen bg-ink-950 font-sans text-white antialiased">
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

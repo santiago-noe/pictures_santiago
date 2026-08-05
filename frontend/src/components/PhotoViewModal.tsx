@@ -61,10 +61,10 @@ export function PhotoViewModal({
               value={photo.category.id}
               onChange={handleCategoryChange}
               disabled={saving}
-              className="appearance-none rounded-full bg-white/15 py-0.5 pl-3 pr-7 text-xs font-medium text-white outline-none hover:bg-white/25 disabled:opacity-60"
+              className="appearance-none rounded-full border border-accent-500/40 bg-accent-500/20 py-0.5 pl-3 pr-7 text-xs font-semibold uppercase tracking-wide text-white outline-none hover:bg-accent-500/30 disabled:opacity-60"
             >
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.id} className="text-ink-900">
+                <option key={cat.id} value={cat.id} className="bg-ink-900 text-white">
                   {cat.name}
                 </option>
               ))}

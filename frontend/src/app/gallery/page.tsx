@@ -75,16 +75,35 @@ export default function GalleryPage() {
 
   if (authLoading || !user) {
     return (
-      <div className="flex min-h-screen items-center justify-center">
-        <p className="text-sm text-ink-500">Cargando…</p>
+      <div className="flex min-h-screen items-center justify-center bg-ink-950">
+        <p className="text-sm text-ink-400">Cargando…</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-ink-50">
+    <div className="min-h-screen bg-ink-950">
       <Navbar />
-      <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
+
+      <div className="relative overflow-hidden border-b border-white/10">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute -top-24 left-1/3 h-[420px] w-[420px] rounded-full bg-accent-600/15 blur-[120px]" />
+        </div>
+        <div className="relative mx-auto max-w-6xl px-4 py-12 sm:px-6">
+          <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent-500">
+            Hola, {user.name.split(" ")[0]}
+          </p>
+          <h1 className="mt-3 text-4xl font-black uppercase leading-[1.05] text-white sm:text-5xl">
+            Tu galería
+          </h1>
+          <p className="mt-3 max-w-md text-sm text-ink-400">
+            {totalCount} {totalCount === 1 ? "foto guardada" : "fotos guardadas"} en{" "}
+            {categories.length} categorías.
+          </p>
+        </div>
+      </div>
+
+      <main className="mx-auto max-w-6xl px-4 py-8 sm:px-6">
         <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
           <CategoryTabs
             categories={categories}
@@ -95,7 +114,7 @@ export default function GalleryPage() {
           />
           <button
             onClick={() => setShowUpload(true)}
-            className="rounded-lg bg-ink-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-ink-800"
+            className="rounded-full bg-accent-500 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white transition hover:bg-accent-600"
           >
             + Subir foto
           </button>
@@ -104,16 +123,16 @@ export default function GalleryPage() {
         {loading ? (
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             {Array.from({ length: 8 }).map((_, i) => (
-              <div key={i} className="aspect-[4/3] animate-pulse rounded-2xl bg-ink-100" />
+              <div key={i} className="aspect-[3/4] animate-pulse rounded-2xl bg-white/5" />
             ))}
           </div>
         ) : photos.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-ink-200 bg-white py-20 text-center">
-            <p className="text-sm font-medium text-ink-700">Aún no subiste fotos aquí</p>
-            <p className="mt-1 text-sm text-ink-500">Sube tu primera foto en esta categoría</p>
+          <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/15 bg-white/5 py-20 text-center">
+            <p className="text-sm font-medium text-white">Aún no subiste fotos aquí</p>
+            <p className="mt-1 text-sm text-ink-400">Sube tu primera foto en esta categoría</p>
             <button
               onClick={() => setShowUpload(true)}
-              className="mt-4 rounded-lg bg-accent-500 px-4 py-2 text-sm font-medium text-white hover:bg-accent-600"
+              className="mt-4 rounded-full bg-accent-500 px-5 py-2 text-xs font-semibold uppercase tracking-wide text-white hover:bg-accent-600"
             >
               + Subir foto
             </button>

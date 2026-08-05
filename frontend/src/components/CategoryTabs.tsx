@@ -39,8 +39,8 @@ export function CategoryTabs({
         onClick={() => onSelect("all")}
         className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
           activeSlug === "all"
-            ? "bg-ink-900 text-white"
-            : "bg-white text-ink-600 hover:bg-ink-100 border border-ink-200"
+            ? "bg-accent-500 text-white"
+            : "border border-white/10 bg-white/5 text-ink-300 hover:border-white/25 hover:text-white"
         }`}
       >
         Todas ({totalCount})
@@ -51,8 +51,8 @@ export function CategoryTabs({
           onClick={() => onSelect(cat.slug)}
           className={`rounded-full px-4 py-1.5 text-sm font-medium transition ${
             activeSlug === cat.slug
-              ? "bg-ink-900 text-white"
-              : "bg-white text-ink-600 hover:bg-ink-100 border border-ink-200"
+              ? "bg-accent-500 text-white"
+              : "border border-white/10 bg-white/5 text-ink-300 hover:border-white/25 hover:text-white"
           }`}
         >
           {cat.name} ({cat.photoCount})
@@ -66,7 +66,7 @@ export function CategoryTabs({
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Nombre"
-            className="w-32 rounded-full border border-ink-200 px-3 py-1.5 text-sm outline-none focus:border-accent-500"
+            className="w-32 rounded-full border border-white/15 bg-white/5 px-3 py-1.5 text-sm text-white placeholder-ink-500 outline-none focus:border-accent-500"
           />
           <button
             type="submit"
@@ -81,7 +81,7 @@ export function CategoryTabs({
               setCreating(false);
               setName("");
             }}
-            className="rounded-full px-2 py-1.5 text-sm text-ink-400 hover:text-ink-600"
+            className="rounded-full px-2 py-1.5 text-sm text-ink-400 hover:text-white"
           >
             ✕
           </button>
@@ -89,7 +89,7 @@ export function CategoryTabs({
       ) : (
         <button
           onClick={() => setCreating(true)}
-          className="rounded-full border border-dashed border-ink-300 px-4 py-1.5 text-sm font-medium text-ink-500 hover:border-accent-500 hover:text-accent-600"
+          className="rounded-full border border-dashed border-white/20 px-4 py-1.5 text-sm font-medium text-ink-400 hover:border-accent-500 hover:text-accent-400"
         >
           + Categoría
         </button>

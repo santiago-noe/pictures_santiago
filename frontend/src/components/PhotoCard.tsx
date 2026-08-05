@@ -29,27 +29,31 @@ export function PhotoCard({
   return (
     <div
       onClick={() => onView(photo)}
-      className="group relative cursor-pointer overflow-hidden rounded-2xl border border-ink-100 bg-white shadow-card"
+      className="group relative aspect-[3/4] cursor-pointer overflow-hidden rounded-2xl border border-white/10 bg-ink-900"
     >
-      <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink-100">
-        <Image
-          src={photo.url}
-          alt={photo.title}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition duration-300 group-hover:scale-105"
-        />
-        <button
-          onClick={handleDelete}
-          disabled={deleting}
-          className="absolute right-2 top-2 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 disabled:opacity-100"
-        >
-          {deleting ? "Borrando…" : "Borrar"}
-        </button>
-      </div>
-      <div className="p-3">
-        <p className="truncate text-sm font-medium text-ink-900">{photo.title}</p>
-        <p className="mt-0.5 text-xs text-ink-500">{photo.category.name}</p>
+      <Image
+        src={photo.url}
+        alt={photo.title}
+        fill
+        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+        className="object-cover transition duration-500 group-hover:scale-110"
+      />
+
+      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/10 to-transparent" />
+
+      <button
+        onClick={handleDelete}
+        disabled={deleting}
+        className="absolute right-2 top-2 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 disabled:opacity-100"
+      >
+        {deleting ? "Borrando…" : "Borrar"}
+      </button>
+
+      <div className="absolute inset-x-0 bottom-0 p-4">
+        <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-accent-400">
+          {photo.category.name}
+        </p>
+        <p className="mt-1 truncate text-sm font-bold uppercase text-white">{photo.title}</p>
       </div>
     </div>
   );

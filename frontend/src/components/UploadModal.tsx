@@ -60,27 +60,27 @@ export function UploadModal({
 
   return (
     <div
-      className="fixed inset-0 z-20 flex items-center justify-center bg-black/40 px-4"
+      className="fixed inset-0 z-20 flex items-center justify-center bg-black/70 px-4"
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl bg-white p-6 shadow-card"
+        className="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-2xl border border-white/10 bg-ink-900 p-6 shadow-2xl"
       >
         <div className="mb-4 flex items-center justify-between">
-          <h2 className="text-lg font-semibold text-ink-900">Subir foto</h2>
-          <button onClick={onClose} className="text-ink-400 hover:text-ink-700">
+          <h2 className="text-lg font-bold uppercase text-white">Subir foto</h2>
+          <button onClick={onClose} className="text-ink-400 hover:text-white">
             ✕
           </button>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <label className="block cursor-pointer rounded-xl border-2 border-dashed border-ink-200 p-4 text-center hover:border-accent-400">
+          <label className="block cursor-pointer rounded-xl border-2 border-dashed border-white/15 p-4 text-center hover:border-accent-400">
             {preview ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={preview} alt="Vista previa" className="mx-auto max-h-48 rounded-lg object-contain" />
             ) : (
-              <span className="text-sm text-ink-500">
+              <span className="text-sm text-ink-400">
                 Haz clic para elegir una imagen (JPG, PNG o WEBP, máx. 8MB)
               </span>
             )}
@@ -88,46 +88,46 @@ export function UploadModal({
           </label>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-ink-700">Título</label>
+            <label className="mb-1 block text-sm font-medium text-ink-200">Título</label>
             <input
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full rounded-lg border border-ink-200 px-3 py-2 text-sm outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
+              className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder-ink-500 outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
               placeholder="Atardecer en la playa"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-ink-700">Descripción (opcional)</label>
+            <label className="mb-1 block text-sm font-medium text-ink-200">Descripción (opcional)</label>
             <textarea
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               rows={2}
-              className="w-full rounded-lg border border-ink-200 px-3 py-2 text-sm outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
+              className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder-ink-500 outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
             />
           </div>
 
           <div>
-            <label className="mb-1 block text-sm font-medium text-ink-700">Categoría</label>
+            <label className="mb-1 block text-sm font-medium text-ink-200">Categoría</label>
             <select
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
-              className="w-full rounded-lg border border-ink-200 px-3 py-2 text-sm outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
+              className="w-full rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white outline-none focus:border-accent-500 focus:ring-2 focus:ring-accent-500/20"
             >
               {categories.map((cat) => (
-                <option key={cat.id} value={cat.id}>
+                <option key={cat.id} value={cat.id} className="bg-ink-900 text-white">
                   {cat.name}
                 </option>
               ))}
             </select>
           </div>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-red-400">{error}</p>}
 
           <button
             type="submit"
             disabled={submitting}
-            className="w-full rounded-lg bg-accent-500 px-3 py-2 text-sm font-medium text-white transition hover:bg-accent-600 disabled:opacity-60"
+            className="w-full rounded-lg bg-accent-500 px-3 py-2 text-sm font-semibold uppercase tracking-wide text-white transition hover:bg-accent-600 disabled:opacity-60"
           >
             {submitting ? "Subiendo…" : "Subir foto"}
           </button>
