@@ -63,6 +63,12 @@ export default function GalleryPage() {
     loadCategories();
   }
 
+  async function handleChangeCategory(photoId: string, categoryId: string) {
+    const res = await api.patch<{ photo: Photo }>(`/api/photos/${photoId}`, { categoryId });
+    setViewingPhoto(res.photo);
+    await Promise.all([loadCategories(), loadPhotos(activeSlug)]);
+  }
+
   const totalCount = categories.reduce((sum, c) => sum + c.photoCount, 0);
   const defaultCategoryId =
     categories.find((c) => c.slug === activeSlug)?.id ?? categories[0]?.id ?? "";
@@ -136,7 +142,12 @@ export default function GalleryPage() {
       )}
 
       {viewingPhoto && (
-        <PhotoViewModal photo={viewingPhoto} onClose={() => setViewingPhoto(null)} />
+        <PhotoViewModal
+          photo={viewingPhoto}
+          categories={categories}
+          onClose={() => setViewingPhoto(null)}
+          onChangeCategory={handleChangeCategory}
+        />
       )}
     </div>
   );

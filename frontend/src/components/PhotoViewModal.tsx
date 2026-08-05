@@ -1,15 +1,33 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import type { Photo } from "@/lib/types";
+import type { Category, Photo } from "@/lib/types";
 
 export function PhotoViewModal({
   photo,
+  categories,
   onClose,
+  onChangeCategory,
 }: {
   photo: Photo;
+  categories: Category[];
   onClose: () => void;
+  onChangeCategory: (photoId: string, categoryId: string) => Promise<void>;
 }) {
+  const [saving, setSaving] = useState(false);
+
+  async function handleCategoryChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    const categoryId = e.target.value;
+    if (categoryId === photo.category.id) return;
+    setSaving(true);
+    try {
+      await onChangeCategory(photo.id, categoryId);
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return (
     <div className="fixed inset-0 z-30 flex flex-col bg-black/95">
       <button
@@ -37,9 +55,26 @@ export function PhotoViewModal({
       >
         <div className="mx-auto flex max-w-3xl flex-wrap items-center gap-3">
           <h2 className="text-lg font-semibold">{photo.title}</h2>
-          <span className="rounded-full bg-white/15 px-3 py-0.5 text-xs font-medium">
-            {photo.category.name}
-          </span>
+
+          <div className="relative">
+            <select
+              value={photo.category.id}
+              onChange={handleCategoryChange}
+              disabled={saving}
+              className="appearance-none rounded-full bg-white/15 py-0.5 pl-3 pr-7 text-xs font-medium text-white outline-none hover:bg-white/25 disabled:opacity-60"
+            >
+              {categories.map((cat) => (
+                <option key={cat.id} value={cat.id} className="text-ink-900">
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+            <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[10px]">
+              ▾
+            </span>
+          </div>
+
+          {saving && <span className="text-xs text-white/60">Guardando…</span>}
         </div>
         <p className="mx-auto mt-1 max-w-3xl whitespace-pre-wrap text-sm text-white/80">
           {photo.description || "Sin descripción."}
