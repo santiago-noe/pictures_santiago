@@ -6,10 +6,10 @@ Una app web donde cada persona crea su cuenta y sube sus fotos organizándolas p
 
 ## Stack
 
-- **Frontend**: Next.js 14 (App Router) + TypeScript + Tailwind CSS → desplegado en **Vercel**.
-- **Backend**: Node.js + Express + TypeScript + Prisma ORM → desplegado en **Railway** (trial gratuito 30 días).
-- **Base de datos**: PostgreSQL (plugin de Railway).
-- **Almacenamiento de imágenes**: Cloudinary (plan gratuito) — Railway no persiste archivos entre despliegues, así que las fotos NO se guardan en disco del backend.
+- **Frontend**: Next.js 14 (App Router) + TypeScript + Tailwind CSS → desplegado en **Vercel** (free tier permanente).
+- **Backend**: Node.js + Express + TypeScript + Prisma ORM → desplegado en **Render** (free tier permanente, sin vencimiento; se "duerme" tras ~15 min sin tráfico).
+- **Base de datos**: PostgreSQL en **Neon** (free tier permanente).
+- **Almacenamiento de imágenes**: Cloudinary (plan gratuito) — el backend no persiste archivos entre despliegues, así que las fotos NO se guardan en disco del backend.
 - **Auth**: email + contraseña, JWT en cookie `httpOnly`.
 
 ## Arquitectura
@@ -18,11 +18,11 @@ Una app web donde cada persona crea su cuenta y sube sus fotos organizándolas p
 Usuario → Frontend (Vercel, Next.js)
               │  fetch con credentials:'include'
               ▼
-        Backend API (Railway, Express)
+        Backend API (Render, Express)
               │            │
               ▼            ▼
         PostgreSQL     Cloudinary
-        (Railway)      (imágenes)
+        (Neon)         (imágenes)
 ```
 
 ## Flujo principal
